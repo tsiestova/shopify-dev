@@ -26,7 +26,6 @@
     font-size: 22px;
     leading-trim: NONE;
     line-height: 42px;
-    letter-spacing: 0%;
     text-align: center;
     color: #656874;
 }
@@ -37,7 +36,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid;
+    border: 1px solid #464B90;
     width: auto;
     margin: auto;
     outline: none;
