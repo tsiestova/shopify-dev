@@ -119,6 +119,7 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
+                <div data-product-id="{{ product.id }}">
                 {% render 'card-product',
                   card_product: product,
                   media_aspect_ratio: section.settings.image_ratio,
@@ -131,6 +132,7 @@
                   section_id: section.id,
                   quick_add: section.settings.quick_add
                 %}
+                </div>
               </li>
           {% endif %}
               {%- assign skip_card_product_styles = true -%}
