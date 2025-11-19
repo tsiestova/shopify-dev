@@ -1,0 +1,52 @@
+<script>
+
+    function hideProductsFromCart() {
+        document.querySelectorAll('[data-product-id]').forEach(el => {
+            const li = el.closest('li');
+            li.style.transition = 'opacity .3s ease, height .3s ease';
+            li.style.willChange = 'opacity, height';
+
+            li.style.opacity = '0';
+            li.style.pointerEvents = 'none';
+            li.style.height = '0';
+            li.style.visibility = 'hidden';
+        });
+
+        fetch('/cart.js')
+            .then(r => r.json())
+            .then(cart => {
+                const ids = cart.items.map(i => i.product_id);
+
+                document.querySelectorAll('[data-product-id]').forEach(el => {
+                    const li = el.closest('li');
+                    const id = Number(el.dataset.productId);
+
+                    if (ids.includes(id)) {
+                        li.remove();
+                    } else {
+                        li.style.opacity = '1';
+                        li.style.pointerEvents = 'auto';
+                        li.style.height = 'auto';
+                        li.style.visibility = 'visible';
+                    }
+                });
+            });
+    }
+
+
+    document.addEventListener('submit', function (e) {
+        if (!e.target.matches('[data-type="add-to-cart-form"]')) return;
+
+        const form = e.target;
+        const button = form.querySelector('[type="submit"]');
+
+        button.disabled = true;
+        button.classList.add('is-added');
+        button.innerText = 'Added';
+    });
+
+
+    document.body.addEventListener("cart:updated", hideProductsFromCart);
+    document.addEventListener('DOMContentLoaded', hideProductsFromCart);
+
+</script>
